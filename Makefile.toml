@@ -1,0 +1,12 @@
+[tasks.LOCAL]
+description = "Build for local"
+script = ['''
+cargo.exe run --release
+''']
+
+[tasks.WASM]
+description = "Build for wasm"
+script = ['''
+RUSTFLAGS=--cfg=web_sys_unstable_apis cargo build --target wasm32-unknown-unknown --release
+wasm-bindgen --out-dir target/wasm-generated --web target/wasm32-unknown-unknown/release/obj_web.wasm
+''']
